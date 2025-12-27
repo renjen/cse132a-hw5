@@ -1,3 +1,13 @@
 -- Problem 3: Initial (naïve) logical plan in relational algebra goes here.
 
 
+π_{c.cname, p.pname} (
+  σ_{c.region = 'West'
+     ∧ p.category LIKE 'Electronics%'
+     ∧ o.amount > 200}
+  (
+    (((Customer c ⋈_{c.cid = o.cid} Orders o)
+      ⋈_{o.oid = oi.oid} OrderItem oi)
+      ⋈_{oi.pid = p.pid} Product p)
+  )
+)

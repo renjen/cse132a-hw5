@@ -1,3 +1,16 @@
 -- Problem 3: Optimized logical plan in relational algebra goes here.
 
 
+π_{cname, pname} (
+  (
+    (
+      (π_{cid, cname} (σ_{region = 'West'} (Customer)))
+        ⋈_{Customer.cid = Orders.cid}
+      (π_{cid, oid} (σ_{amount > 200} (Orders)))
+    )
+      ⋈_{Orders.oid = OrderItem.oid}
+    (π_{oid, pid} (OrderItem))
+  )
+    ⋈_{OrderItem.pid = Product.pid}
+  (π_{pid, pname} (σ_{category LIKE 'Electronics%'} (Product)))
+)

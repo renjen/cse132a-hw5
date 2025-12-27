@@ -1,3 +1,4 @@
 -- Problem 1: Explanation (2-5 sentences) of your optimizations goes here.
 
 
+I first applied selection pushdown by moving the predicates on Department.location, Employee.salary, and Project.budget directly onto their respective base relations. Then I used projection pushdown to keep only the attributes needed for joins and final output (deptid, dname, pid, empid, name) in intermediate results, removing unnecessary columns early. Finally, I reordered the joins using associativity and commutativity so that selections and projections reduce relation sizes before later joins. This optimized plan is better because it works on smaller intermediate relations, which reduces the cost of join operations while producing the same final result.

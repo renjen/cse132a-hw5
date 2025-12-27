@@ -1,3 +1,4 @@
 -- Problem 2: Explanation (2-5 sentences) of your optimizations goes here.
 
 
+I first pushed the predicates s.major = 'CS' and c.dept = 'CS' down to the Student and Course base relations to filter tuples as early as possible. Then I applied projection pushdown so that intermediate results keep only the attributes needed for joins and output: sid and sname from Student, sid and cid from Enrollment, and cid from Course. Next, I unnested the correlated EXISTS subquery into a semi-join between the filtered Student relation and the Enrollment–Course join, projecting the right side down to sid to capture only existence. This optimized plan reduces the size of intermediate relations and uses a semi-join instead of a nested subquery, making it more efficient while preserving the query’s semantics.

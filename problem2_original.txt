@@ -1,3 +1,12 @@
 -- Problem 2: Initial (naïve) logical plan in relational algebra goes here.
 
 
+π_{s.sname} (
+  σ_{s.major = 'CS' ∧ EXISTS(
+        π_{1} (
+          σ_{e.sid = s.sid ∧ c.dept = 'CS'}
+            (Enrollment e ⋈_{e.cid = c.cid} Course c)
+        )
+     )}
+  (Student s)
+)

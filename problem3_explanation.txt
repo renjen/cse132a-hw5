@@ -1,3 +1,4 @@
 -- Problem 3: Explanation (2-5 sentences) of your optimizations goes here.
 
 
+I first pushed the selection predicates c.region = 'West', o.amount > 200, and p.category LIKE 'Electronics%' down to the Customer, Orders, and Product base relations so that each table is filtered before any joins. I then applied projection pushdown, keeping only the attributes needed for joins and final output (cid, cname, oid, pid, pname) in intermediate results. Using associativity/commutativity of joins, I joined the filtered Customer and Orders first, then OrderItem, and finally the filtered Product, so that the most selective joins occur earlier. Join minimization does not apply here because all four relations are required to produce the desired cname–pname pairs, but the reordered and pushed-down plan significantly reduces intermediate result sizes compared to the initial naive plan.
